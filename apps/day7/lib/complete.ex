@@ -62,54 +62,6 @@ defmodule Day7.Part1 do
     make_deps_map(rest, state) 
   end
 
-  # def process_line(state, line) do
-  #   import Bitwise
-  #
-  #   IO.puts line
-  #
-  #   [part1, dest] = String.split(line, " -> ") 
-  #   parts = String.split(part1, " ")
-  #   state = case length(parts) do
-  #     1 -> Map.put(state, dest, elem(Integer.parse(hd(parts)), 0))
-  #     2 ->
-  #       [op, right] = parts
-  #       b = case Integer.parse(right) do
-  #         {val, _} -> val
-  #         :error -> Map.get(state, right)
-  #       end
-  #       x = case op do
-  #         "NOT" ->
-  #         ~~~b
-  #         _ -> raise "Invalid op"
-  #       end
-  #       Map.put(state, dest, x &&& 0xFFFF)
-  #     3 ->
-  #       [left, op, right] = parts
-  #       a = case Integer.parse(left) do
-  #         {val, _} -> val
-  #         :error -> Map.get(state, left)
-  #       end
-  #       b = case Integer.parse(right) do
-  #         {val, _} -> val
-  #         :error -> Map.get(state, right)
-  #       end
-  #       x = case op do
-  #         "AND" ->
-  #           a &&& b
-  #         "OR" ->
-  #           a ||| b
-  #         "LSHIFT" ->
-  #           a <<< b
-  #         "RSHIFT" ->
-  #           a >>> b
-  #         _ -> raise "Invalid op"
-  #       end
-  #       Map.put(state, dest, x &&& 0xFFFF)
-  #   end
-  #   
-  #   state
-  # end
-
   def trace_wire(wire, deps_map) do
     case Map.get(deps_map, wire) do
       a when is_integer(a) ->
@@ -171,23 +123,17 @@ defmodule Day7.Part1 do
     deps_map = input
       |> String.split("\n", trim: true)
       |> make_deps_map(Map.new())
-    # a -> lx -> lw OR lv -> lc shift 1 -> lb or la -> kh shift 1 -> k
+
+###################################
+# Part 2
+    deps_map = Map.put(deps_map, "b", 16076)
+###################################
     IO.inspect deps_map
     {_, val} = trace_wire("a", deps_map)
     val
   end
 
   def main do
-    input = """
-    123 -> x
-    456 -> y
-    x AND y -> d
-    x OR y -> e
-    x LSHIFT 2 -> f
-    y RSHIFT 2 -> g
-    NOT x -> h
-    NOT y -> i
-    """
     input = File.read!("input.txt")
 
     result = process(input)
