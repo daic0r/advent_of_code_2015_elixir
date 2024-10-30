@@ -29,7 +29,7 @@ defmodule Day12 do
     input_json = Jason.decode!(input) |> IO.inspect
     result = process(input_json, 0)
 
-    IO.puts "Part 1 Result = #{result}"
+    IO.puts "Part #{@part} Result = #{result}"
   end
 
   def start_link do
