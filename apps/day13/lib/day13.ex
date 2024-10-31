@@ -1,4 +1,10 @@
 defmodule Day13 do
+  @part 2
+
+  defp part() do
+    @part
+  end
+
   defmodule Pairing do
     defstruct [:person_a, :person_b, :delta]
   end
@@ -20,6 +26,22 @@ defmodule Day13 do
     people = data
       |> Enum.uniq_by(fn e -> e.person_a end)
       |> Enum.map(fn e -> e.person_a end)
+
+    {data, people} = 
+        if part() == 2 do
+          added = for person <- people, into: [] do
+            %Pairing{ person_a: person, person_b: "ic0r", delta: 0 }
+          end
+          data = added ++ data
+          added = for person <- people, into: [] do
+            %Pairing{ person_a: "ic0r", person_b: person, delta: 0 }
+          end
+          data = added ++ data
+          people = ["ic0r" | people ]
+          {data, people}
+        else
+          {data, people}
+        end
 
     res = Permutation.permute!(people)
       |> Enum.map(fn permutation ->
