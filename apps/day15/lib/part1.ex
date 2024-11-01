@@ -1,6 +1,6 @@
-defmodule Day15 do
-  @amount_ingredients 100
+defmodule Day15.Part1 do
 
+  @amount_ingredients 100
   def amount_ingredients(), do: @amount_ingredients
 
   def process(input) do

@@ -10,7 +10,7 @@ defmodule Day15.Application do
     children = [
       # Starts a worker by calling: Day15.Worker.start_link(arg)
       # {Day15.Worker, arg}
-      %{ id: Day15, start: {Day15, :start_link, []} }
+      %{ id: Day15.Part2, start: {Day15.Part2, :start_link, []} }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
